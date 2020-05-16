@@ -79,18 +79,37 @@ namespace WebApiTestTask.Controllers
         [HttpPost("addnew")]
         public async Task<IActionResult> AddPhone([FromBody] PhoneModel model)
         {
-            var mapped = _mapper.Map<Phone>(model);
-            mapped.Id = Guid.NewGuid();
-            await _phoneService.AddPhone(mapped);
-            return Ok();
+            if(model.Id != Guid.Empty)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                var mapped = _mapper.Map<Phone>(model);
+                mapped.Id = Guid.NewGuid();
+                await _phoneService.AddPhone(mapped);
+                return Ok();
+            }
         }
 
         [HttpPost("update")]
         public async Task<IActionResult> UpdatePhoneInfo([FromBody] PhoneModel model)
         {
-            var mapped = _mapper.Map<Phone>(model);
-            await _phoneService.UpdatePhoneInfo(mapped);
-            return Ok();
+            if(model.Id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                var phone = await _phoneService.GetPhoneById(model.Id);
+                if(phone == null)
+                {
+                    return NotFound();
+                }
+                var mapped = _mapper.Map<Phone>(model);
+                await _phoneService.UpdatePhoneInfo(mapped);
+                return Ok();
+            }
         }
 
         [HttpDelete("delete/{id}")]

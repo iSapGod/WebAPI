@@ -41,7 +41,7 @@ namespace WebApiTestTask.Services
 
         public async Task<Phone> GetPhoneById(Guid id)
         {
-            return await _dbContext.Phones.FindAsync(id);
+            return await _dbContext.Phones.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<Phone>> GetPhonesByManufacturer(string manufacturer)

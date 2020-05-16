@@ -76,7 +76,7 @@ namespace web_api_tests
 
         public async Task<Phone> GetPhoneById(Guid id)
         {
-            return _phones.Where(x => x.Id == id).FirstOrDefault();
+            return _phones.FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<List<Phone>> GetPhonesByManufacturer(string manufacturer)
