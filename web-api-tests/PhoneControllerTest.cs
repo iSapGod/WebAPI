@@ -247,6 +247,7 @@ namespace web_api_tests
             Assert.IsType<OkObjectResult>(phonesResult);
         }
 
+        [Fact]
         public async void Fail_GetByManufacturer()
         {
             string manufacturer = "Huawei";
