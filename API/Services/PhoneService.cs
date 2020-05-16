@@ -53,7 +53,7 @@ namespace WebApiTestTask.Services
         {
             List<Phone> phones = new List<Phone>
             {
-                 new Phone
+                new Phone
                 {
                     Manufacturer = "Microsoft",
                     Model = "Lumia 950 XL",
